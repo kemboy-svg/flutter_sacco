@@ -27,8 +27,9 @@ class StartState extends State<LoginScreen> {
     return loading
         ? const Loading()
         : Scaffold(
-            body: Form(
-                child: Column(
+           body: SingleChildScrollView(
+        child: Form(
+          child: Column(
             children: [
               Container(
                 height: 300,
@@ -200,6 +201,6 @@ class StartState extends State<LoginScreen> {
                 ),
               ),
             ],
-          )));
+          ))));
   }
 }

@@ -1,0 +1,154 @@
+{
+  "project_info": {
+    "project_number": "441681054614",
+    "project_id": "loanapp-e60a7",
+    "storage_bucket": "loanapp-e60a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441681054614:android:f3653959d90eca74a56bb7",
+        "android_client_info": {
+          "package_name": "com.commhighsacco.commhigh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441681054614-nf04dmf2al94s8bhddo5v4pnkvls4kvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9oWvqTjpQKBWK6ffTnZ4AZaBs6e0g-ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441681054614-nf04dmf2al94s8bhddo5v4pnkvls4kvn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "441681054614-3dg1btgrt1j4foin3seognbcq1ikuo8t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.commhigh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441681054614:android:7fef822e3a72a9daa56bb7",
+        "android_client_info": {
+          "package_name": "com.example.flutter_apps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441681054614-nf04dmf2al94s8bhddo5v4pnkvls4kvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9oWvqTjpQKBWK6ffTnZ4AZaBs6e0g-ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441681054614-nf04dmf2al94s8bhddo5v4pnkvls4kvn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "441681054614-3dg1btgrt1j4foin3seognbcq1ikuo8t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.commhigh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441681054614:android:dbd215785b0d2c6fa56bb7",
+        "android_client_info": {
+          "package_name": "com.example.sacco_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441681054614-nf04dmf2al94s8bhddo5v4pnkvls4kvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9oWvqTjpQKBWK6ffTnZ4AZaBs6e0g-ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441681054614-nf04dmf2al94s8bhddo5v4pnkvls4kvn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "441681054614-3dg1btgrt1j4foin3seognbcq1ikuo8t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.commhigh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441681054614:android:d4ba3fc883e8b316a56bb7",
+        "android_client_info": {
+          "package_name": "com.loan.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441681054614-nf04dmf2al94s8bhddo5v4pnkvls4kvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9oWvqTjpQKBWK6ffTnZ4AZaBs6e0g-ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441681054614-nf04dmf2al94s8bhddo5v4pnkvls4kvn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "441681054614-3dg1btgrt1j4foin3seognbcq1ikuo8t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.commhigh"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
