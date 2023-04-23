@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import '../menu.dart';
 
-class balanceScreen extends StatefulWidget {
-  balanceScreen({Key? key}) : super(key: key);
+class BalanceScreen extends StatefulWidget {
+  BalanceScreen({Key? key}) : super(key: key);
 
   @override
-  _balanceScreenState createState() => _balanceScreenState();
+  _BalanceScreenState createState() => _BalanceScreenState();
 }
 
-class _balanceScreenState extends State<balanceScreen> {
+class _BalanceScreenState extends State<BalanceScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
@@ -133,10 +133,8 @@ class _balanceScreenState extends State<balanceScreen> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => menuScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => menuScreen()));
                 auth.signOut();
               },
               child: Container(
@@ -145,13 +143,10 @@ class _balanceScreenState extends State<balanceScreen> {
                 padding: EdgeInsets.only(left: 20, right: 20),
                 height: 54,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [
-                        (new Color(0xFF185BB3)),
-                        new Color(0xFF7DD3F0),
-                      ],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight),
+                  gradient: LinearGradient(colors: [
+                    (new Color(0xFF185BB3)),
+                    new Color(0xFF7DD3F0),
+                  ], begin: Alignment.centerLeft, end: Alignment.centerRight),
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.grey[200],
                   boxShadow: [
@@ -167,7 +162,6 @@ class _balanceScreenState extends State<balanceScreen> {
                 ),
               ),
             ),
-
           ],
         ),
       ),

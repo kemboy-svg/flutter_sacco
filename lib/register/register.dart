@@ -1,24 +1,23 @@
-import 'dart:ffi';
+// ignore_for_file: unused_local_variable, unnecessary_null_comparison, body_might_complete_normally_catch_error, import_of_legacy_library_into_null_safe
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_apps/camera.dart';
-import 'package:flutter_apps/menu.dart';
 import 'package:flutter_apps/utils/loading.dart';
 import 'package:international_phone_input/international_phone_input.dart';
-import 'package:pinput/pinput.dart';
-import 'package:flutter_sms/flutter_sms.dart';
 
-class registerScreen extends StatefulWidget {
-  registerScreen({Key? key}) : super(key: key);
+import 'package:pinput/pinput.dart';
+
+class RegisterScreen extends StatefulWidget {
+  RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  _registerScreenState createState() => _registerScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _registerScreenState extends State<registerScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   DateTime selectedDate = DateTime.now();
   double balance = 0.00;
   String? phoneNumber;
@@ -34,6 +33,16 @@ class _registerScreenState extends State<registerScreen> {
   bool loading = false;
   final TextEditingController _pinOTPCodeController = TextEditingController();
   final FocusNode _pinOTPCodeFocus = FocusNode();
+
+  final defaultPinTheme = PinTheme(
+    width: 56,
+    height: 56,
+    textStyle: TextStyle(
+        fontSize: 20.0, color: Colors.blue, fontWeight: FontWeight.bold),
+    decoration: BoxDecoration(
+        border: Border.all(color: Colors.blue),
+        borderRadius: BorderRadius.circular(5)),
+  );
 
   void onPhoneNumberChange(
       String number, String internationalizedPhoneNumber, String isoCode) {
@@ -98,31 +107,18 @@ class _registerScreenState extends State<registerScreen> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: PinPut(
-                            fieldsCount: 6,
-                            textStyle:
-                                TextStyle(fontSize: 15.0, color: Colors.blue),
-                            eachFieldHeight: 15.0,
-                            eachFieldWidth: 10.0,
+                          child: Pinput(
+                            length: 6,
                             focusNode: _pinOTPCodeFocus,
                             controller: _pinOTPCodeController,
-                            submittedFieldDecoration: BoxDecoration(
-                              color: Colors.blueGrey,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.blue),
-                            ),
-                            selectedFieldDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.blue),
-                            ),
-                            followingFieldDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.blue),
-                            ),
+                            submittedPinTheme: defaultPinTheme.copyWith(
+                                decoration: defaultPinTheme.decoration
+                                    ?.copyWith(color: Colors.white10)),
+                            focusedPinTheme: defaultPinTheme.copyDecorationWith(
+                                border: Border.all(color: Colors.blue),
+                                borderRadius: BorderRadius.circular(5)),
                             pinAnimationType: PinAnimationType.rotation,
-                            onSubmit: (pin) async {
+                            onSubmitted: (pin) async {
                               var credential = PhoneAuthProvider.credential(
                                   verificationId: verificationId, smsCode: pin);
                               _auth
@@ -157,7 +153,7 @@ class _registerScreenState extends State<registerScreen> {
                                                           Navigator.push(
                                                               context,
                                                               MaterialPageRoute(
-                                                                  builder: (context) => cameraScreen(
+                                                                  builder: (context) => CameraScreen(
                                                                       name: fname
                                                                           .text
                                                                           .trim())))
@@ -238,6 +234,7 @@ class _registerScreenState extends State<registerScreen> {
                           if (val == null || val.isEmpty) {
                             return 'Enter Amount';
                           }
+                          return null;
                         },
                         controller: fname,
                       ),
@@ -277,6 +274,7 @@ class _registerScreenState extends State<registerScreen> {
                           if (val == null || val.isEmpty) {
                             return 'Enter Amount';
                           }
+                          return null;
                         },
                         controller: lname,
                       ),
@@ -354,6 +352,7 @@ class _registerScreenState extends State<registerScreen> {
                           if (val == null || val.isEmpty) {
                             return 'Enter Amount';
                           }
+                          return null;
                         },
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.digitsOnly,
@@ -397,6 +396,7 @@ class _registerScreenState extends State<registerScreen> {
                           if (val == null || val.isEmpty) {
                             return 'Enter Amount';
                           }
+                          return null;
                         },
                         controller: address,
                       ),
@@ -435,6 +435,7 @@ class _registerScreenState extends State<registerScreen> {
                           if (val == null || val.isEmpty) {
                             return 'Enter Amount';
                           }
+                          return null;
                         },
                         controller: location,
                       ),
@@ -480,10 +481,3 @@ class _registerScreenState extends State<registerScreen> {
   }
 }
 
-void _sendSMS(String message, List<String> recipents) async {
-  String _result = await sendSMS(message: message, recipients: recipents)
-      .catchError((onError) {
-    print(onError);
-  });
-  print(_result);
-}

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, import_of_legacy_library_into_null_safe
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:international_phone_input/international_phone_input.dart';
@@ -84,7 +86,7 @@ class _VerifyWithdrawState extends State<VerifyWithdraw> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        withdrawScreen())),
+                                                        WithdrawScreen())),
                                           }
                                         else
                                           {

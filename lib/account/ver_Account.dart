@@ -1,17 +1,19 @@
+// ignore_for_file: unnecessary_null_comparison, import_of_legacy_library_into_null_safe
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/account/account.dart';
 import 'package:international_phone_input/international_phone_input.dart';
-import 'package:pinput/pin_put/pin_put.dart';
+import 'package:pinput/pinput.dart';
 
-class verifyAccount extends StatefulWidget {
-  const verifyAccount({Key? key}) : super(key: key);
+class VerifyAccount extends StatefulWidget {
+  const VerifyAccount({Key? key}) : super(key: key);
 
   @override
-  _verifyAccountState createState() => _verifyAccountState();
+  _VerifyAccountState createState() => _VerifyAccountState();
 }
 
-class _verifyAccountState extends State<verifyAccount> {
+class _VerifyAccountState extends State<VerifyAccount> {
   String? phoneNumber;
   String? phoneIsoCode;
   var isLoading = true;
@@ -19,6 +21,15 @@ class _verifyAccountState extends State<verifyAccount> {
   final TextEditingController _pinOTPCodeController = TextEditingController();
   final FocusNode _pinOTPCodeFocus = FocusNode();
 
+  final defaultPinTheme = PinTheme(
+    width: 56,
+    height: 56,
+    textStyle: TextStyle(
+        fontSize: 20.0, color: Colors.blue, fontWeight: FontWeight.bold),
+    decoration: BoxDecoration(
+        border: Border.all(color: Colors.blue),
+        borderRadius: BorderRadius.circular(5)),
+  );
   Future signIn(String phoneNumber) async {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
@@ -38,33 +49,18 @@ class _verifyAccountState extends State<verifyAccount> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.all(10.0),
-                          child: PinPut(
-                            fieldsCount: 6,
-                            textStyle: TextStyle(
-                                fontSize: 20.0,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
-                            eachFieldHeight: 25.0,
-                            eachFieldWidth: 10.0,
+                          child: Pinput(
+                            length: 6,
                             focusNode: _pinOTPCodeFocus,
                             controller: _pinOTPCodeController,
-                            submittedFieldDecoration: BoxDecoration(
-                              color: Colors.blueGrey,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.blue),
-                            ),
-                            selectedFieldDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.blue),
-                            ),
-                            followingFieldDecoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.blue),
-                            ),
+                            submittedPinTheme: defaultPinTheme.copyWith(
+                                decoration: defaultPinTheme.decoration
+                                    ?.copyWith(color: Colors.white10)),
+                            focusedPinTheme: defaultPinTheme.copyDecorationWith(
+                                border: Border.all(color: Colors.blue),
+                                borderRadius: BorderRadius.circular(5)),
                             pinAnimationType: PinAnimationType.rotation,
-                            onSubmit: (pin) async {
+                            onSubmitted: (pin) async {
                               var credential = PhoneAuthProvider.credential(
                                   verificationId: verificationId, smsCode: pin);
                               _auth
@@ -76,7 +72,7 @@ class _verifyAccountState extends State<verifyAccount> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        accNumScreen())),
+                                                        AccNumScreen())),
                                           },
                                       });
                             },

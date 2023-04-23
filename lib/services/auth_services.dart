@@ -1,8 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class dbServices {
+class DbServices {
   final String uid;
-  dbServices({required this.uid});
+  DbServices({required this.uid});
 
   final CollectionReference detailCollection =
       FirebaseFirestore.instance.collection('userDetails');

@@ -1,24 +1,24 @@
+// ignore_for_file: must_be_immutable, deprecated_member_use
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:camera/camera.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_apps/menu.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'services/firebase_api.dart';
 
-class cameraScreen extends StatefulWidget {
-  cameraScreen({required this.name});
+class CameraScreen extends StatefulWidget {
+  CameraScreen({required this.name});
   String name;
 
   @override
-  _cameraScreenState createState() => _cameraScreenState();
+  _CameraScreenState createState() => _CameraScreenState();
 }
 
-class _cameraScreenState extends State<cameraScreen> {
+class _CameraScreenState extends State<CameraScreen> {
   File? _image;
   UploadTask? task;
 

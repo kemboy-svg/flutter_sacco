@@ -1,11 +1,9 @@
-import 'dart:ffi';
+
 import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 import 'package:flutter_apps/utils/loading.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,14 +14,14 @@ import 'package:intl/intl.dart';
 
 import '../menu.dart';
 
-class depositScreen extends StatefulWidget {
-  depositScreen({Key? key}) : super(key: key);
+class DepositScreen extends StatefulWidget {
+  DepositScreen({Key? key}) : super(key: key);
 
   @override
-  _depositScreenState createState() => _depositScreenState();
+  _DepositScreenState createState() => _DepositScreenState();
 }
 
-class _depositScreenState extends State<depositScreen> {
+class _DepositScreenState extends State<DepositScreen> {
   TextEditingController _amount = new TextEditingController();
   TextEditingController memNumber = new TextEditingController();
   late String name;
@@ -75,14 +73,14 @@ class _depositScreenState extends State<depositScreen> {
           newBalance = snapshot['Balance'] + amount;
           transaction.update(documentReference, {'Balance': newBalance});
 
-          String first_name = snapshot['First_name'];
-          String last_name = snapshot['Last_name'];
+          String firstName = snapshot['First_name'];
+          String lastName = snapshot['Last_name'];
           String idNumber = snapshot['idNum'];
 
           await _firestore.collection("Transactions").doc().set(
             {
-              'First_name': first_name,
-              'Last_name': last_name,
+              'First_name': firstName,
+              'Last_name': lastName,
               'UID': uid,
               'idnum': idNumber,
               'date': formatted,
@@ -92,7 +90,7 @@ class _depositScreenState extends State<depositScreen> {
             },
           );
 
-          _createPDF(first_name, last_name, idNumber, numAmount, formatted,
+          _createPDF(firstName, lastName, idNumber, numAmount, formatted,
               transID, newBalance);
           setState(() {
             loading = false;
@@ -173,6 +171,7 @@ class _depositScreenState extends State<depositScreen> {
                         if (val == null || val.isEmpty) {
                           return 'Enter Amount';
                         }
+                        return null;
                       },
                     ),
                   ),
@@ -255,7 +254,7 @@ class _depositScreenState extends State<depositScreen> {
   }
 }
 
-Future<void> _createPDF(String first_name, String last_name, String idnum,
+Future<void> _createPDF(String firstName, String lastName, String idnum,
     String amount, String date, String transID, double newAmount) async {
   //Create a new PDF document
   PdfDocument document = PdfDocument();
@@ -325,7 +324,7 @@ Future<void> _createPDF(String first_name, String last_name, String idnum,
     page,
     'Deposit',
     Rect.fromLTWH(0, 180, 300, 20),
-    text: 'NAME: ' + first_name + ' ' + last_name,
+    text: 'NAME: ' + firstName + ' ' + lastName,
     borderColor: PdfColor(255, 255, 255),
     font: PdfStandardFont(PdfFontFamily.timesRoman, 14),
   ));
@@ -358,7 +357,7 @@ Future<void> _createPDF(String first_name, String last_name, String idnum,
   ));
 
   //Save the document
-  List<int> bytes = document.save();
+  Future<List<int>> bytes = document.save();
 
   //Dispose the document
   document.dispose();
@@ -373,7 +372,7 @@ Future<void> _createPDF(String first_name, String last_name, String idnum,
   File file = File('$path/Output.pdf');
 
   //Write PDF data
-  await file.writeAsBytes(bytes, flush: true);
+  await file.writeAsBytes(bytes as List<int>, flush: true);
 
   //Open the PDF document in mobile
   OpenFile.open('$path/Output.pdf');

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, import_of_legacy_library_into_null_safe
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_apps/deposit/deposit.dart';
@@ -5,14 +7,14 @@ import 'package:flutter_apps/utils/loading.dart';
 import 'package:international_phone_input/international_phone_input.dart';
 import 'package:pinput/pinput.dart';
 
-class verifyDeposit extends StatefulWidget {
-  verifyDeposit({Key? key}) : super(key: key);
+class VerifyDeposit extends StatefulWidget {
+  VerifyDeposit({Key? key}) : super(key: key);
 
   @override
-  _verifyDepositState createState() => _verifyDepositState();
+  _VerifyDepositState createState() => _VerifyDepositState();
 }
 
-class _verifyDepositState extends State<verifyDeposit> {
+class _VerifyDepositState extends State<VerifyDeposit> {
   String? phoneNumber;
   String? phoneIsoCode;
   var isLoading = true;
@@ -53,7 +55,6 @@ class _verifyDepositState extends State<verifyDeposit> {
                     title: Text(
                       'Enter Verification Code Text',
                     ),
-                    
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -82,7 +83,7 @@ class _verifyDepositState extends State<verifyDeposit> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        depositScreen())),
+                                                        DepositScreen())),
                                           }
                                         else
                                           {

@@ -1,16 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_apps/account/ver_Account.dart';
 import 'package:flutter_apps/balance/ver_balance.dart';
 import 'package:flutter_apps/deposit/ver_Deposit.dart';
 import 'package:flutter_apps/register/register.dart';
 import 'package:flutter_apps/withdraw/ver_withdraw.dart';
-
-import 'account/account.dart';
-import 'deposit/deposit.dart';
-import 'register/register.dart';
-import 'withdraw/withdraw.dart';
 
 // ignore: camel_case_types
 class menuScreen extends StatefulWidget {
@@ -59,7 +52,7 @@ class StartState extends State<menuScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => verifyAccount()));
+                                builder: (context) => VerifyAccount()));
                       },
                       child: Column(
                         children: [
@@ -87,7 +80,7 @@ class StartState extends State<menuScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => verifyBalance()));
+                                builder: (context) => VerifyBalance()));
                       },
                       child: Column(
                         children: [
@@ -116,7 +109,7 @@ class StartState extends State<menuScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => verifyDeposit()));
+                                builder: (context) => VerifyDeposit()));
                       },
                       child: Column(
                         children: [
@@ -146,7 +139,7 @@ class StartState extends State<menuScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => verifyWithdraw()));
+                                builder: (context) => VerifyWithdraw()));
                       },
                       child: Column(
                         children: [
@@ -199,7 +192,7 @@ class StartState extends State<menuScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => registerScreen()));
+                                builder: (context) => RegisterScreen()));
                       },
                       child: Column(
                         children: [

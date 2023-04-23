@@ -1,24 +1,22 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../menu.dart';
 
-class accNumScreen extends StatefulWidget {
+class AccNumScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => StartState();
 }
 
-class StartState extends State<accNumScreen> {
+class StartState extends State<AccNumScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('MEMBER ACCOUNT'),
       ),
@@ -157,10 +155,11 @@ class StartState extends State<accNumScreen> {
                             width: 150,
                             margin: EdgeInsets.only(left: 0, right: 0, top: 20),
                             padding: EdgeInsets.only(left: 5, right: 5),
-                            child: Image.network(imageUrl, fit: BoxFit.fill,),
+                            child: Image.network(
+                              imageUrl,
+                              fit: BoxFit.fill,
+                            ),
                           ),
-
-
                         ],
                       );
                     }
@@ -170,10 +169,8 @@ class StartState extends State<accNumScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => menuScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => menuScreen()));
                   auth.signOut();
                 },
                 child: Container(
@@ -182,13 +179,10 @@ class StartState extends State<accNumScreen> {
                   padding: EdgeInsets.only(left: 20, right: 20),
                   height: 54,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          (new Color(0xFF185BB3)),
-                          new Color(0xFF7DD3F0),
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight),
+                    gradient: LinearGradient(colors: [
+                      (new Color(0xFF185BB3)),
+                      new Color(0xFF7DD3F0),
+                    ], begin: Alignment.centerLeft, end: Alignment.centerRight),
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.grey[200],
                     boxShadow: [

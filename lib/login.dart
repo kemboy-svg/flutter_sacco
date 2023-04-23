@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, unnecessary_statements
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_apps/utils/loading.dart';
@@ -21,7 +23,6 @@ class StartState extends State<LoginScreen> {
   }
 
   initWidget() {
-    key:
     formKey;
     return loading
         ? Loading()

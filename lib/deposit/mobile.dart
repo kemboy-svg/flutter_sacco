@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element, unused_local_variable
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
@@ -42,7 +44,7 @@ Future<void> _createPDF() async {
       text: 'Derrick'));
 
   //Save the document
-  List<int> bytes = document.save();
+  Future<List<int>> bytes = document.save();
 
   //Dispose the document
   document.dispose();
