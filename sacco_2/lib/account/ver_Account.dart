@@ -1,100 +1,21 @@
-// ignore_for_file: unnecessary_null_comparison, import_of_legacy_library_into_null_safe, library_private_types_in_public_api, file_names, empty_catches, avoid_print
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:international_phone_input/international_phone_input.dart';
-import 'package:pinput/pinput.dart';
 import 'package:sacco_2/account/account.dart';
 
 class VerifyAccount extends StatefulWidget {
   const VerifyAccount({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _VerifyAccountState createState() => _VerifyAccountState();
 }
 
 class _VerifyAccountState extends State<VerifyAccount> {
   String? phoneNumber;
-  String? phoneIsoCode;
   var isLoading = true;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final TextEditingController _pinOTPCodeController = TextEditingController();
-  final FocusNode _pinOTPCodeFocus = FocusNode();
 
-  final defaultPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: const TextStyle(
-        fontSize: 20.0, color: Colors.blue, fontWeight: FontWeight.bold),
-    decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue),
-        borderRadius: BorderRadius.circular(5)),
-  );
-  Future signIn(String phoneNumber) async {
-    try {
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) {},
-        verificationFailed: (FirebaseAuthException e) {},
-        codeSent: (verificationId, [forceResendingToken]) {
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => AlertDialog(
-                    title: const Text(
-                      'Enter Verification Code Text',
-                    ),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Pinput(
-                            length: 6,
-                            focusNode: _pinOTPCodeFocus,
-                            controller: _pinOTPCodeController,
-                            submittedPinTheme: defaultPinTheme.copyWith(
-                                decoration: defaultPinTheme.decoration
-                                    ?.copyWith(color: Colors.white10)),
-                            focusedPinTheme: defaultPinTheme.copyDecorationWith(
-                                border: Border.all(color: Colors.blue),
-                                borderRadius: BorderRadius.circular(5)),
-                            pinAnimationType: PinAnimationType.rotation,
-                            onSubmitted: (pin) async {
-                              var credential = PhoneAuthProvider.credential(
-                                  verificationId: verificationId, smsCode: pin);
-                              _auth
-                                  .signInWithCredential(credential)
-                                  .then((user) async => {
-                                        if (user != null)
-                                          {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const AccNumScreen())),
-                                          },
-                                      });
-                            },
-                          ),
-                        )
-                      ],
-                    ),
-                  ));
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {},
-      );
-    } catch (e) {}
-  }
-
-  void onPhoneNumberChange(
-      String number, String internationalizedPhoneNumber, String isoCode) {
-    print(internationalizedPhoneNumber);
-    setState(() {
-      phoneNumber = internationalizedPhoneNumber;
-      phoneIsoCode = isoCode;
-    });
-  }
+  final TextEditingController _phoneNumberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +27,8 @@ class _VerifyAccountState extends State<VerifyAccount> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
           children: [
             Image.asset(
               "assets/15.png",
@@ -138,47 +60,56 @@ class _VerifyAccountState extends State<VerifyAccount> {
                       color: Color(0xffEEEEEE)),
                 ],
               ),
-              child: InternationalPhoneInput(
-                  decoration:
-                      const InputDecoration.collapsed(hintText: 'Enter Phone Number'),
-                  onPhoneNumberChange: onPhoneNumberChange,
-                  initialPhoneNumber: phoneNumber,
-                  initialSelection: 'Ke',
-                  enabledCountries: const ['+254'],
-                  showCountryCodes: true),
-            ),
-            GestureDetector(
-              onTap: () {
-                signIn(phoneNumber!);
-              },
-              child: Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(left: 20, right: 20, top: 70),
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                height: 54,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                      colors: [(Color(0xff2A87FF)), Color(0xff00BFFF)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight),
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey[200],
-                  boxShadow: const [
-                    BoxShadow(
-                        offset: Offset(0, 10),
-                        blurRadius: 50,
-                        color: Color(0xffEEEEEE)),
-                  ],
-                ),
-                child: const Text(
-                  "NEXT",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
+              child: TextField(
+                controller: _phoneNumberController,
+                keyboardType: TextInputType.phone,
+                decoration:
+                    const InputDecoration.collapsed(hintText: 'Enter Phone Number'),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
+            GestureDetector(
+  onTap: () {
+    _auth.signInWithPhoneNumber(_phoneNumberController.text).then((user) {
+      if (user != null) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const AccNumScreen()));
+      }
+    });
+  },
+  child: Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.only(left: 20, right: 20, top: 70),
+    padding: const EdgeInsets.only(left: 20, right: 20),
+    height: 54,
+    decoration: BoxDecoration(
+      gradient: const LinearGradient(
+          colors: [(Color(0xff2A87FF)), Color(0xff00BFFF)],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight),
+      borderRadius: BorderRadius.circular(20),
+      color: Colors.grey[200],
+      boxShadow: const [
+        BoxShadow(
+            offset: Offset(0, 10),
+            blurRadius: 50,
+            color: Color(0xffEEEEEE)),
+      ],
+    ),
+    child: const Text(
+      "NEXT",
+      style: TextStyle(color: Colors.white, fontSize: 20),
+    ),
+  ),
+         ),
+         ],
+),
+  )
+),
+);
 }
+}
+
+
+

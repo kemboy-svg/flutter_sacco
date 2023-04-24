@@ -58,6 +58,7 @@ class StartState extends State<menuScreen> {
                             MaterialPageRoute(
                                 builder: (context) => const VerifyAccount()));
                       },
+                      
                       child: Column(
                         children: const [
                           Icon(

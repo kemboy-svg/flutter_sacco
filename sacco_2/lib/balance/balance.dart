@@ -23,6 +23,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
       appBar: AppBar(
         title: const Text('ACCOUNT BALANCE'),
       ),
+      
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
