@@ -12,8 +12,8 @@ class AccNumScreen extends StatefulWidget {
 }
 
 class StartState extends State<AccNumScreen> {
-  FirebaseAuth auth = FirebaseAuth.instance;
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  // FirebaseAuth auth = FirebaseAuth.instance;
+  // CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -47,19 +47,16 @@ class StartState extends State<AccNumScreen> {
               Container(
                 height: 250,
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: FutureBuilder<DocumentSnapshot>(
-                  future: users.doc(auth.currentUser!.uid).get(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<DocumentSnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text("Something went wrong");
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance.collection('register_members').snapshots(),
+                  builder:(context, snapshot){
+                    if (!snapshot.hasData){
+                      return  const CircularProgressIndicator();
                     }
-                    if (snapshot.hasData && !snapshot.data!.exists) {
-                      return const Text("Document does not exist");
-                    }
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      Map<String, dynamic> data =
-                          snapshot.data!.data() as Map<String, dynamic>;
+                    DocumentSnapshot<Map<String, dynamic>> data = snapshot.data!.docs[index];
+                  } 
+                     
+
                       String balance = '${data['Balance']}';
                       var doubleBalance = double.parse(balance);
                       double bookBalance = doubleBalance - 500;
@@ -148,41 +145,21 @@ class StartState extends State<AccNumScreen> {
                           ),
                         ],
                       );
-                    }
+                    
                     return const Text('Loading');
                   },
                 ),
               ),
-              GestureDetector(
-                onTap: () {
+              ElevatedButton(
+                onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const menuScreen()));
-                  auth.signOut();
+                      MaterialPageRoute(builder: (_) => const menuScreen()));
+                  
                 },
-                child: Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.only(left: 20, right: 20, top: 0),
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  height: 54,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(colors: [
-                      (Color(0xFF185BB3)),
-                      Color(0xFF7DD3F0),
-                    ], begin: Alignment.centerLeft, end: Alignment.centerRight),
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey[200],
-                    boxShadow: const [
-                      BoxShadow(
-                          offset: Offset(0, 10),
-                          blurRadius: 50,
-                          color: Color(0xffEEEEEE)),
-                    ],
+                child: const Text(
+                 "BACK TO MAIN MENU",
+                 style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                  child: const Text(
-                    "BACK TO MAIN MENU",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
               ),
             ],
           ),
